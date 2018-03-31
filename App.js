@@ -14,13 +14,13 @@ const RootStack = StackNavigator({
     screen: HomeScreen,
   },
   Poach: {
-    screen: Poach
+    screen: Hard
   },
   Hard: {
     screen: Hard
   },
   Soft: {
-    screen: Soft
+    screen: Hard
   }
 }, {
     initialRouteName: 'Home',
@@ -28,7 +28,8 @@ const RootStack = StackNavigator({
   });
 
 export default class App extends React.Component {
+
   render() {
-    return <RootStack />;
+    return <RootStack style={{height: "100%", width: "100%"}} />;
   }
 }

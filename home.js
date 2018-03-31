@@ -6,9 +6,12 @@ import poached from './assets/images/poached.png'
 import softboiled from './assets/images/softboiled.png'
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    headerTransparent: true,
+  };
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 0 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 0, backgroundColor: "#f7b900" }}>
         <TouchableOpacity
           title="POACHED"
           onPress={() => this.props.navigation.navigate('Poach')}
