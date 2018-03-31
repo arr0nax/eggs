@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import Expo from 'expo';
+
 
 
 import zero from "../assets/images/0.png"
@@ -17,7 +19,7 @@ export default class Hard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeRemaining: 1234,
+      timeRemaining: 200,
       timerRunning: false,
       done: false,
       images: [
@@ -34,11 +36,65 @@ export default class Hard extends React.Component {
       ]
     };
     this.timer = null;
+    // this.playSound();
+    this.song = new Expo.Audio.Sound();
+    this.song.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        this.replaySound();
+      }
+    });
+    this.loadSound()
+
   }
+
+  loadSound() {
+    try {
+      this.song.loadAsync(require('../assets/songs/eggs.mp3'));
+      // Your sound is playing!
+    } catch (error) {
+      // An error occurred!
+    }
+  }
+
+  playSound() {
+    try {
+      this.song.playAsync();
+    } catch(error) {
+
+    }
+  }
+
+  pauseSound() {
+    try {
+      this.song.pauseAsync();
+    } catch(error) {
+
+    }
+  }
+
+  stopSound() {
+    try {
+      this.song.stopAsync();
+    } catch(error) {
+
+    }
+  }
+
+  replaySound() {
+    try {
+      this.song.replayAsync({ shouldPlay: true});
+    } catch (error) {
+
+    }
+
+  }
+
 
   startTimer() {
     this.setState({timerRunning: !this.state.timerRunning})
+    this.playSound();
     if (this.state.timerRunning) {
+      this.pauseSound();
       clearInterval(this.timer);
     } else {
       this.timer = setInterval(() => {
@@ -50,6 +106,7 @@ export default class Hard extends React.Component {
   runTimer() {
     if (this.state.timeRemaining < 1) {
       this.setState({done: true});
+      this.pauseSound();
     } else {
       this.setState({timeRemaining: this.state.timeRemaining - 1})
     }
@@ -57,10 +114,12 @@ export default class Hard extends React.Component {
 
   finishTimer() {
     this.setState({timeRemaining: 0, timerRunning: false, done: true})
+    this.pauseSound();
   }
 
   resetTimer() {
     this.setState({timeRemaining: 5, timerRunning: false, done: false})
+    this.stopSound();
     clearInterval(this.timer);
   }
 
