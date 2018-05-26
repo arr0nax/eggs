@@ -25,6 +25,9 @@ import guitaregg from "../assets/images/guitaregg.png"
 export default class Hard extends React.Component {
   static navigationOptions = {
     headerTransparent: true,
+    headerStyle: {
+        borderBottomWidth: 0,
+    }
   };
 
   constructor(props) {
@@ -96,9 +99,8 @@ export default class Hard extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('HELLO');
-    this.stopSound();
-    this.stopAlarm();
+    this.song = null;
+    this.alarm = null;
   }
 
   loadSound() {
