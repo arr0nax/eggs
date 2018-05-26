@@ -9,6 +9,11 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     headerTransparent: true,
   };
+
+  constructor(props) {
+    super(props);
+
+  }
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 0, backgroundColor: "#f7b900" }}>

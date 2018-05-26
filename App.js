@@ -5,9 +5,7 @@ import {
 } from 'react-navigation';
 
 import HomeScreen from './home.js';
-import Poach from './containers/poach.js'
 import Hard from './containers/hard.js'
-import Soft from './containers/soft.js'
 
 const RootStack = StackNavigator({
   Home: {

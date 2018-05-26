@@ -29,29 +29,33 @@ export default class Hard extends React.Component {
 
   constructor(props) {
     super(props);
-
     var timeRemaining;
     var background;
     var doneImage;
+    var mascot;
     switch (this.props.navigation.state.routeName) {
       case "Hard":
-        timeRemaining = 300;
+        timeRemaining = 360;
         background = background1;
         doneImage = guitaregg;
+        mascot = 'jules';
         break;
       case "Soft":
-        timeRemaining = 200;
+        timeRemaining = 270;
         background = background2;
         doneImage = gudetamaegg;
+        mascot = 'andrea';
         break;
       case "Poach":
-        timeRemaining = 100;
+        timeRemaining = 180;
         background = background3;
         doneImage = DrumEggBut;
+        mascot = 'kate';
         break;
     }
 
     this.state = {
+      mascot,
       timeRemaining: timeRemaining,
       background: background,
       timerRunning: false,
@@ -76,18 +80,25 @@ export default class Hard extends React.Component {
     // this.playSound();
     this.blinkTimer = null;
     this.song = new Expo.Audio.Sound();
+    this.alarm = new Expo.Audio.Sound();
     this.song.setOnPlaybackStatusUpdate((status) => {
       if (status.didJustFinish) {
         this.replaySound();
       }
     });
+    this.alarm.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        this.replayAlarm();
+      }
+    });
     this.loadSound();
-    console.log(this.state.doneImage)
-
+    this.loadAlarm();
   }
 
   componentWillUnmount() {
+    console.log('HELLO');
     this.stopSound();
+    this.stopAlarm();
   }
 
   loadSound() {
@@ -99,9 +110,31 @@ export default class Hard extends React.Component {
     }
   }
 
+  loadAlarm() {
+    try {
+      if (this.state.mascot === "kate") {
+        this.alarm.loadAsync(require("../assets/songs/kate.mp3"))
+      } else if (this.state.mascot === "andrea") {
+        this.alarm.loadAsync(require("../assets/songs/andrea.mp3"))
+      } else if (this.state.mascot === "jules") {
+        this.alarm.loadAsync(require("../assets/songs/jules.mp3"))
+      }
+    } catch (error) {
+
+    }
+  }
+
   playSound() {
     try {
       this.song.playAsync();
+    } catch(error) {
+
+    }
+  }
+
+  playAlarm() {
+    try {
+      this.alarm.playAsync();
     } catch(error) {
 
     }
@@ -123,9 +156,26 @@ export default class Hard extends React.Component {
     }
   }
 
+  stopAlarm() {
+    try {
+      this.alarm.stopAsync();
+    } catch(error) {
+
+    }
+  }
+
   replaySound() {
     try {
       this.song.replayAsync({ shouldPlay: true});
+    } catch (error) {
+
+    }
+
+  }
+
+  replayAlarm() {
+    try {
+      this.alarm.replayAsync({ shouldPlay: true});
     } catch (error) {
 
     }
@@ -138,6 +188,7 @@ export default class Hard extends React.Component {
     this.playSound();
     if (this.state.timerRunning) {
       this.pauseSound();
+      this.stopAlarm();
       clearInterval(this.timer);
       clearInterval(this.blinkTimer);
       this.blinkTimer = null;
@@ -152,6 +203,7 @@ export default class Hard extends React.Component {
     if (this.state.timeRemaining < 1) {
       this.setState({done: true});
       this.pauseSound();
+      this.playAlarm();
       if (this.blinkTimer === null) {
         this.blinkTimer = setInterval(() => {
           this.setState({textBlink: !this.state.textBlink})
@@ -168,13 +220,14 @@ export default class Hard extends React.Component {
       this.setState({textBlink: !this.state.textBlink})
     }, 500)
     this.pauseSound();
-
+    this.playAlarm();
 
   }
 
   resetTimer() {
     this.setState({timeRemaining: 1, timerRunning: false, done: false})
     this.stopSound();
+    this.stopAlarm();
     clearInterval(this.timer);
     clearInterval(this.blinkTimer);
     this.blinkTimer = null;
@@ -211,7 +264,6 @@ export default class Hard extends React.Component {
         )
         break;
       case 3:
-        console.log(seconds%10);
         return (
           <View style={styles.numberContainer}>
           <Image style={styles.numberImage} source={this.state.images[(seconds % 10)]}/>
