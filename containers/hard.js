@@ -227,7 +227,19 @@ export default class Hard extends React.Component {
   }
 
   resetTimer() {
-    this.setState({timeRemaining: 1, timerRunning: false, done: false})
+    var timeRemaining;
+    switch (this.props.navigation.state.routeName) {
+      case "Hard":
+        timeRemaining = 360;
+        break;
+      case "Soft":
+        timeRemaining = 270;
+        break;
+      case "Poach":
+        timeRemaining = 180;
+        break;
+    }
+    this.setState({timeRemaining, timerRunning: false, done: false})
     this.stopSound();
     this.stopAlarm();
     clearInterval(this.timer);

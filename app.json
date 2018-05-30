@@ -10,6 +10,11 @@
      "bundleIdentifier": "com.ClaytonOnline.EggTimer",
      "buildNumber": "1.0.0",
    },
+   "splash": {
+    "image": "./assets/images/splash.png",
+    "backgroundColor": "#f7b900",
+    "resizeMode": "cover"
+  },
    "android": {
      "package": "com.ClaytonOnline.EggTimer"
    }
