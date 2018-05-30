@@ -50,7 +50,7 @@ export default class Hard extends React.Component {
         mascot = 'andrea';
         break;
       case "Poach":
-        timeRemaining = 180;
+        timeRemaining = 120;
         background = background3;
         doneImage = DrumEggBut;
         mascot = 'kate';
@@ -99,6 +99,8 @@ export default class Hard extends React.Component {
   }
 
   componentWillUnmount() {
+    this.stopSound();
+    this.stopAlarm();
     this.song = null;
     this.alarm = null;
   }
@@ -236,7 +238,7 @@ export default class Hard extends React.Component {
         timeRemaining = 270;
         break;
       case "Poach":
-        timeRemaining = 180;
+        timeRemaining = 120;
         break;
     }
     this.setState({timeRemaining, timerRunning: false, done: false})

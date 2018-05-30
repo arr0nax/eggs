@@ -32,7 +32,7 @@ export default class Info extends React.Component {
     return (
       <View style={styles.container}>
         <Image source={sluts} style={styles.backgroundImage} />
-        <Text style={styles.italicText}>Made with love for the DIY Sluts</Text>
+        <Text style={styles.italicText}>Made with love for the DIY Sloots</Text>
         <TouchableOpacity onPress={() => this.navigateToAlbum()}>
           <Text style={styles.underlineText}>Download the album here</Text>
         </TouchableOpacity>
