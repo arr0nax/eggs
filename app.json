@@ -1,14 +1,14 @@
 {
   "expo": {
-   "name": "Egg Timer",
+   "name": "DIY Eggs",
    "icon": "./assets/images/icon.png",
-   "version": "1.0.0",
+   "version": "1.0.2",
    "slug": "egg-timer",
    "sdkVersion": "25.0.0",
    "scheme": "egg-timer",
    "ios": {
      "bundleIdentifier": "com.ClaytonOnline.EggTimer",
-     "buildNumber": "1.0.0",
+     "buildNumber": "1.0.2",
    },
    "splash": {
     "image": "./assets/images/splash.png",
