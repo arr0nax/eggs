@@ -99,6 +99,19 @@ export default class HomeScreen extends React.Component {
           />
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Snake')}
+          style={{
+            flex: 1,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text>
+            snake
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

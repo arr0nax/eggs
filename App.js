@@ -7,6 +7,7 @@ import {
 import HomeScreen from './home.js';
 import Hard from './containers/hard.js'
 import Info from './containers/info.js'
+import Snake from './containers/snake.js'
 
 const RootStack = StackNavigator({
   Home: {
@@ -23,6 +24,9 @@ const RootStack = StackNavigator({
   },
   Info: {
     screen: Info
+  },
+  Snake: {
+    screen: Snake
   }
 }, {
     initialRouteName: 'Home',
